@@ -1,0 +1,131 @@
+/* Keyframes for moving and fading chat image */
+@keyframes move-and-fade {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 100px); /* Adjust based on the chat image size */
+    opacity: 0;
+  }
+}
+
+/* Keyframes for progressive reveal of the block image */
+@keyframes progressive-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0); /* Fully hide the colorful image */
+  }
+  100% {
+    clip-path: inset(0 0 0 0); /* Fully reveal the colorful image */
+  }
+}
+
+.home-main-container {
+  height: 130vh;
+  background-color: black;
+  background-size: cover;
+  background-image: url("../../assets/Images/homeBgImg.png");
+  position: relative;
+}
+
+.mass-chain-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mass-chain-heading {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 96px;
+  font-family: "Libre Bodoni";
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background: linear-gradient(
+    90deg,
+    #ff46ba 1.16%,
+    rgba(146, 73, 245, 0.9) 25.06%,
+    rgba(24, 114, 246, 0.95) 48.9%,
+    #6febfd 88.06%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.middle-container {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+}
+
+/* Container for the two overlapping images */
+.block-image-container {
+  margin-top: 40px;
+  position: relative;
+  width: 100vh;
+  height: 20vh;
+}
+
+.block-img-white,
+.block-img-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.block-img-white {
+  z-index: 1; /* White image on top initially */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.block-img-color {
+  z-index: 2; /* Colorful image underneath */
+  background-size: cover;
+  background-repeat: no-repeat;
+  clip-path: inset(0 100% 0 0); /* Start fully covered */
+  animation: progressive-reveal 6s linear infinite 0.1s; /* Start with a delay of 1 second */
+}
+
+.chat-img {
+  top: -45px;
+  position: relative;
+  animation: move-and-fade 6s linear infinite; /* No delay, starts immediately */
+}
+
+.launch-btn-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.launch-btn {
+  color: #fff;
+  font-family: Lato;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  width: 200px;
+  height: 85px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(180deg, #6a40d9 0%, #ee328d 100%),
+    linear-gradient(180deg, #1169f5 0%, #7effff 100%);
+}
+
+.wallet-purple{
+  width: 20%;
+}
+.wallet-blue{
+  width: 20%;
+}
