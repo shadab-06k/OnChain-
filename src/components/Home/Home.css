@@ -30,6 +30,7 @@
 
 .mass-chain-header-container {
   display: flex;
+  text-align: center;
   justify-content: center;
   align-items: center;
 }
@@ -123,9 +124,25 @@
     linear-gradient(180deg, #1169f5 0%, #7effff 100%);
 }
 
-.wallet-purple{
+.wallet-purple {
   width: 20%;
 }
-.wallet-blue{
+.wallet-blue {
   width: 20%;
+}
+@media screen and (max-width: 874px) {
+  .home-main-container {
+    height: 100%;
+    background-color: black;
+    background-size: cover;
+    background-image: url("../../assets/Images/homeBgImg.png");
+    position: absolute;
+  }
+  .middle-container {
+    /* background-repeat: url("../../assets/Images/blocksImg1.png"); */
+    display: none;
+  }
+  .block-image-container {
+    display: none;
+  }
 }

@@ -42,13 +42,11 @@ const ConnectWallet = () => {
   const [isInputReadOnlyNft, setIsInputReadOnlyNft] = useState(false);
   const [totalGasEstimationWei, setTotalGasEstimationWei] = useState("");
 
-  // console.log("toAddress", toAddress);
-  console.log("toAddressNft", toAddressNft);
+  // console.log("toAddressNft", toAddressNft);
 
-  const apiIp = `192.168.1.13:7000`;
-  // const apiIp = `192.168.233.72:7000`;
+  const apiIp = process.env.REACT_APP_API_IP;
+ 
 
-  // This useEffect will listen for account changes and update the state accordingly
   useEffect(() => {
     if (window.ethereum) {
       const handleAccountsChanged = (accounts) => {
@@ -497,8 +495,8 @@ const ConnectWallet = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       // Send the estimated Ether to the backend wallet address
-      console.log("Before Sending Eth to Backend Wallet");
-      console.log("handleSendMessageFundsButtonClick == ", coast);
+      // console.log("Before Sending Eth to Backend Wallet");
+      // console.log("handleSendMessageFundsButtonClick == ", coast);
 
       const totalCostInWei = ethers.utils.parseUnits(
         (coast * 2).toString(),
@@ -506,8 +504,8 @@ const ConnectWallet = () => {
       );
       // const toAddress = "0xA868928a216D7Ef887517C28EaE52948fB079628"; // Ensure this is the correct address
 
-      console.log("totalCostInWei == ", totalCostInWei);
-      console.log("Total Cost in Wei (integer):", totalCostInWei.toString());
+      // console.log("totalCostInWei == ", totalCostInWei);
+      // console.log("Total Cost in Wei (integer):", totalCostInWei.toString());
 
       const tx = {
         to: toAddress,
@@ -520,7 +518,7 @@ const ConnectWallet = () => {
       // Wait for the transaction to be mined
       await transactionResponse.wait();
       await executeOrder(walletAddress, orderId);
-      console.log("order id", orderId);
+      // console.log("order id", orderId);
       // Reset file input and clear gas and cost fields
       setFileNameMessage("");
       setGasPriceSendMessage("");
@@ -592,7 +590,7 @@ const ConnectWallet = () => {
       const formData = new FormData();
       formData.append("image", file); // Append the file to the form data
       formData.append("order_id", orderIdNft); // Append the wallet address
-      console.log("OrderIdNftImage", orderIdNft);
+      // console.log("OrderIdNftImage", orderIdNft);
 
       const res = await fetch(`http://${apiIp}/upload-nft-metadata`, {
         method: "POST",
@@ -607,7 +605,7 @@ const ConnectWallet = () => {
       }
 
       const data = await res.json();
-      console.log("Nft Image uploaded successfully:", data);
+      // console.log("Nft Image uploaded successfully:", data);
       toast.success("Nft Image uploaded", {
         position: "top-center",
         autoClose: 3000,
@@ -622,7 +620,7 @@ const ConnectWallet = () => {
       setUploadedNftImage(true); // Mark as uploaded
       // setOrderIdNftImage(data.order_id);
       // setToAddressNftImage(data.public_address);
-      console.log("OrderIdNftImage outside === ", orderIdNftImage);
+      // console.log("OrderIdNftImage outside === ", orderIdNftImage);
       // console.log("ToAddressNftImage outside === ", toAddressNftImage);
     } catch (error) {
       console.error("Failed to upload Nft Image:", error);
@@ -672,7 +670,7 @@ const ConnectWallet = () => {
       }
 
       const data = await res.json();
-      console.log("Nft File uploaded successfully:", data);
+      // console.log("Nft File uploaded successfully:", data);
       toast.success("Nft File uploaded", {
         position: "top-center",
         autoClose: 3000,
@@ -795,7 +793,7 @@ const ConnectWallet = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       // Send the estimated Ether to the backend wallet address
-      console.log("Before Sending Eth to Backend Wallet");
+      // console.log("Before Sending Eth to Backend Wallet");
 
       const totalCostInWei = ethers.utils.parseUnits(
         (totalGasEstimationWei * 2).toString(),
@@ -803,8 +801,8 @@ const ConnectWallet = () => {
       );
       // const toAddress = "0xA868928a216D7Ef887517C28EaE52948fB079628"; // Ensure this is the correct address
 
-      console.log("totalCostInWei == ", totalCostInWei);
-      console.log("Total Cost in Wei (integer):", totalCostInWei.toString());
+      // console.log("totalCostInWei == ", totalCostInWei);
+      // console.log("Total Cost in Wei (integer):", totalCostInWei.toString());
 
       const tx = {
         to: toAddressNft,
@@ -904,36 +902,36 @@ const ConnectWallet = () => {
       <header>
         <div className="text-white d-flex justify-content-space-between align-items-center navbar">
           <div className="d-flex align-items-center flex-row flex-wrap">
-          <p className="dashboard">Dashboard</p>
+            {/* <p className="dashboard">Dashboard</p> */}
           </div>
           <div className="d-flex justify-content-end align-items-baseline flex-row">
-          {walletAddress ? (
-            <>
-              <FaWallet className="admin-icon mx-1 text-white" />
-              <p className="address text-white">
-                {shortenAddress(walletAddress)}
-              </p>
-            </>
-          ) : (
-            ""
-          )}
-          {!walletAddress ? (
-            <button
-              className="mx-3 connect-wallet-btn"
-              onClick={handleConnectWallet}
-              type="button"
-            >
-              Connect
-            </button>
-          ) : (
-            <button
-              className="mx-3 connect-wallet-btn"
-              type="button"
-              disabled={true}
-            >
-              Connected
-            </button>
-          )}
+            {walletAddress ? (
+              <>
+                <FaWallet className="admin-icon mx-1 text-white" />
+                <p className="address text-white">
+                  {shortenAddress(walletAddress)}
+                </p>
+              </>
+            ) : (
+              ""
+            )}
+            {!walletAddress ? (
+              <button
+                className="mx-3 connect-wallet-btn"
+                onClick={handleConnectWallet}
+                type="button"
+              >
+                Connect
+              </button>
+            ) : (
+              <button
+                className="mx-3 connect-wallet-btn"
+                type="button"
+                disabled={true}
+              >
+                Connected
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -1083,10 +1081,6 @@ const ConnectWallet = () => {
               </button>
             </div>
             <div className="nft-funds-main-container">
-              {/* <p className="d-flex justify-conetent-space-between flex-row text-white">
-      Gas Price:{" "}
-      <p className="d-flex flex-wrap"> 1223345566778888</p>{" "}
-    </p> */}
               <p className="d-flex justify-content-space-between flex-row text-white">
                 Total Cost:{" "}
                 <p className="mx-1 d-flex flex-wrap">{totalGasEstimationWei}</p>{" "}
@@ -1128,7 +1122,7 @@ const ConnectWallet = () => {
                     {fileNameMessage ? (
                       <p className="file-name-display">{fileNameMessage}</p>
                     ) : (
-                      <p className="file-name-display">No File Selected</p>
+                      <p className="file-name-display">Upload Excel Here </p>
                     )}
                   </div>
                 </div>
@@ -1163,8 +1157,7 @@ const ConnectWallet = () => {
                   }
                 >
                   {loading ? "Uploading..." : uploaded ? "Uploaded" : "Upload"}
-                  {console.log("uploaded", uploaded)}
-                  {console.log("loading", loading)}
+          
                 </button>
               </div>
 
@@ -1233,267 +1226,3 @@ const ConnectWallet = () => {
 
 export default ConnectWallet;
 
-// import React, { useEffect, useState } from "react";
-// import "./ConnectWallet.css";
-// import { FaWallet } from "react-icons/fa";
-// import sendNftImg from "../../assets/Images/sendNftImg1.png";
-
-// const ConnectWallet = () => {
-//   const [walletAddress, setWalletAddress] = useState("");
-
-//   useEffect(() => {
-//     console.log("walletAddress useEffect === ", walletAddress);
-//   }, [walletAddress]);
-
-//   const handleConnectWallet = async () => {
-//     if (window.ethereum) {
-//       try {
-//         // Request account access
-//         await window.ethereum.request({ method: "eth_requestAccounts" });
-//         // Switch to Base Network
-//         const accounts = await window.ethereum.request({
-//           method: "eth_accounts",
-//         });
-//         const walletAddress = accounts[0];
-//         setWalletAddress(walletAddress);
-//         console.log("Wallet Address:", walletAddress);
-//         // const networkId = await window.ethereum.request({
-//         //   method: "net_version",
-//         // });
-
-//         const baseChainId = "0x14a34"; // Hexadecimal representation of 84532
-//         try {
-//           await window.ethereum.request({
-//             method: "wallet_switchEthereumChain",
-//             params: [{ chainId: baseChainId }],
-//           });
-//           console.log("Successfully switched to the Base Network");
-//         } catch (switchError) {
-//           if (switchError.code === 4902) {
-//             console.error("Base Network is not present in your wallet.");
-//             alert(
-//               "Base Network is not added to your wallet. Please add it manually."
-//             );
-//           } else {
-//             console.error("Failed to switch to Base Network:", switchError);
-//           }
-//         }
-//       } catch (connectError) {
-//         console.error("User denied account access:", connectError);
-//       }
-//     } else {
-//       alert("MetaMask not detected");
-//       console.error("MetaMask not detected");
-//     }
-//   };
-
-//   const shortenAddress = (address) => {
-//     if (!address) return "";
-//     const firstPart = address.slice(0, 8); // Get first 8 characters
-//     const lastPart = address.slice(-6); // Get last 6 characters
-//     return `${firstPart}..${lastPart}`;
-//   };
-
-//   //   navigate("/create-wallet");
-
-//   return (
-//     <>
-//       <header>
-//         {walletAddress ? (
-//           <>
-//             <FaWallet className="admin-icon mx-1 text-white" />
-//             <p className="address text-white">
-//               {shortenAddress(walletAddress)}
-//             </p>
-//           </>
-//         ) : (
-//           ""
-//         )}
-//         {!walletAddress ? (
-//           <button
-//             className="mx-3 connect-wallet-btn"
-//             onClick={handleConnectWallet}
-//             type="button"
-//           >
-//             Connect
-//           </button>
-//         ) : (
-//           <button
-//             className="mx-3 connect-wallet-btn"
-//             type="button"
-//             disabled={true}
-//           >
-//             Connected
-//           </button>
-//         )}
-//       </header>
-//       <div className="connect-wallet-main-container">
-//         <div className="on-chain-header-container">
-//           <p className="on-chain-heading">OnChain Message</p>
-//         </div>
-
-//         <div className="box-main-container">
-//           <div className="box1">
-//             <h1 className="send-message-heading">Send Message</h1>
-//             <div className="custom-input-file-container">
-//               <input
-//                 type="file"
-//                 className="text-white form-control-file"
-//                 id="exampleFormControlFile1"
-//               />
-//               <button className="send-message-upload-btn" type="button">
-//                 Upload
-//               </button>
-//             </div>
-//             <div className="custom-input-text-container">
-//               <input className="input-write" type="text" name="" id="" />
-//               <button className="send-message-estimate-btn" type="button">
-//                 Estimate Gas
-//               </button>
-//             </div>
-//             <div className="send-funds-main-container">
-//               <div>
-//                 <p className="text-white">Gas Price:</p>
-//                 <p className="text-white">Total Cost:</p>
-//               </div>
-//               <button className="send-message-estimate-btn" type="button">
-//                 Send Funds
-//               </button>
-//             </div>
-//           </div>
-//           <div className="box2">
-//             <h1 className="send-message-heading">Send NFT</h1>
-//             <div className="nft-custom-input-file-container">
-//               <input
-//                 type="file"
-//                 className="text-white form-control-file"
-//                 id="exampleFormControlFile1"
-//               />
-//               <button className="send-message-upload-btn" type="button">
-//                 Upload
-//               </button>
-//             </div>
-//             <div className="custom-input-text-container">
-//               <input className="input-write" type="text" name="" id="" />
-//               <button className="send-message-estimate-btn" type="button">
-//                 Estimate Gas
-//               </button>
-//             </div>
-//             <div className="nft-funds-main-container">
-//               <div>
-//                 <p className="text-white">Gas Price:</p>
-//                 <p className="text-white">Total Cost:</p>
-//               </div>
-//               <button className="nft-message-estimate-btn" type="button">
-//                 Send Funds
-//               </button>
-//             </div>
-//           </div>
-//           <img className="send-nft-img" src={sendNftImg} alt="" />
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ConnectWallet;
-
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import "./ConnectWallet.css";
-// import secureWalletImg from "../../assets/Images/secureWallet.png";
-
-// const ConnectWallet = () => {
-//   const navigate = useNavigate();
-//   const [walletAddressCondition, setWalletAddressCondition] = useState(false);
-//   const [walletAddress, setWalletAddress] = useState("");
-//   const handleCreateSeedNavigate = () => {
-//     navigate("/create-seed");
-//   };
-
-//   const handleConnectWallet = async () => {
-//     if (window.ethereum) {
-//       try {
-//         // Request account access
-//         await window.ethereum.request({ method: "eth_requestAccounts" });
-//         // Switch to Base Network
-//         const accounts = await window.ethereum.request({
-//           method: "eth_accounts",
-//         });
-//         const walletAddress = accounts[0];
-//         setWalletAddress(walletAddress);
-//         setWalletAddressCondition(true);
-//         console.log("Wallet Address:", walletAddress);
-//         // const networkId = await window.ethereum.request({
-//         //   method: "net_version",
-//         // });
-
-//         const baseChainId = "0x14a34"; // Hexadecimal representation of 84532
-//         try {
-//           await window.ethereum.request({
-//             method: "wallet_switchEthereumChain",
-//             params: [{ chainId: baseChainId }],
-//           });
-//           console.log("Successfully switched to the Base Network");
-//         } catch (switchError) {
-//           if (switchError.code === 4902) {
-//             console.error("Base Network is not present in your wallet.");
-//             alert(
-//               "Base Network is not added to your wallet. Please add it manually."
-//             );
-//           } else {
-//             console.error("Failed to switch to Base Network:", switchError);
-//           }
-//         }
-//       } catch (connectError) {
-//         console.error("User denied account access:", connectError);
-//       }
-//     } else {
-//       console.error("MetaMask not detected");
-//     }
-//   };
-
-//   //   navigate("/create-wallet");
-
-//   return (
-//     <div className="d-flex  justify-content-center align-items-center flex-wrap my-5">
-//       <div className="main">
-//         <img className="img-bg mb-5" src={secureWalletImg} alt="" />
-//         <h2 className="heading-wallet-setup container">Connect Your Wallet</h2>
-//         {/* <button
-//         className="btn-import-seed-phrase text-warning mb-0"
-//         onClick={handleCreateSeedNavigate}
-//         type="button"
-//       >
-//         Connect Your Wallet {" "}
-//       </button> */}
-//         {walletAddressCondition && (
-//           <div className="container wallet-address-container">
-//             <h2 className="wallet-address">{walletAddress}</h2>
-//           </div>
-//         )}
-
-//         {!walletAddressCondition ? (
-//           <button
-//             type="button"
-//             onClick={handleConnectWallet}
-//             className="create-new-wallet"
-//           >
-//             <b>Connect</b>
-//           </button>
-//         ) : (
-//           <button
-//             type="button"
-//             disabled={true}
-//             // onClick={handleConnectWallet}
-//             className="connected-button"
-//           >
-//             <b> Wallet Connected</b>
-//           </button>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ConnectWallet;
