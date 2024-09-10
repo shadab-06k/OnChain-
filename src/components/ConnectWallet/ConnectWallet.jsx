@@ -45,7 +45,7 @@ const ConnectWallet = () => {
   // console.log("toAddressNft", toAddressNft);
 
   const apiIp = process.env.REACT_APP_API_IP;
- 
+  console.log("api ip url ==>>> ", apiIp);
 
   useEffect(() => {
     if (window.ethereum) {
@@ -242,26 +242,31 @@ const ConnectWallet = () => {
     if (window.ethereum) {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
+
         const accounts = await window.ethereum.request({
           method: "eth_accounts",
         });
         const walletAddress = accounts[0];
 
-        // Attempt to connect to the backend API
-        const signupSuccess = await userSignup(walletAddress);
-        if (!signupSuccess) {
-          // Exit the function if the API call fails
-          console.error(
-            "Failed to connect to the backend. Wallet not connected."
-          );
+        if (!walletAddress) {
+          console.error("No wallet address found.");
           return;
         }
 
-        // Only set the wallet address if the API call is successful
+        const signupSuccess = await userSignup(walletAddress);
+
+        if (!signupSuccess) {
+          console.error(
+            "Failed to connect to the backend. Wallet not connected."
+          );
+          alert("Unable to connect to the backend. Wallet connection failed.");
+          return;
+        }
+
         setWalletAddress(walletAddress);
         console.log("Wallet Address:", walletAddress);
 
-        const baseChainId = "0x4268"; // Hexadecimal representation of 84532
+        const baseChainId = "0x2105";
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
@@ -286,6 +291,55 @@ const ConnectWallet = () => {
       console.error("MetaMask not detected");
     }
   };
+
+  // const handleConnectWallet = async () => {
+  //   if (window.ethereum) {
+  //     try {
+  //       await window.ethereum.request({ method: "eth_requestAccounts" });
+  //       const accounts = await window.ethereum.request({
+  //         method: "eth_accounts",
+  //       });
+  //       const walletAddress = accounts[0];
+
+  //       // Attempt to connect to the backend API
+  //       const signupSuccess = await userSignup(walletAddress);
+  //       if (!signupSuccess) {
+  //         // Exit the function if the API call fails
+  //         console.error(
+  //           "Failed to connect to the backend. Wallet not connected."
+  //         );
+  //         return;
+  //       }
+
+  //       // Only set the wallet address if the API call is successful
+  //       setWalletAddress(walletAddress);
+  //       console.log("Wallet Address:", walletAddress);
+
+  //       const baseChainId = "0x2105"; // Hexadecimal representation of 84532
+  //       try {
+  //         await window.ethereum.request({
+  //           method: "wallet_switchEthereumChain",
+  //           params: [{ chainId: baseChainId }],
+  //         });
+  //         console.log("Successfully switched to the Base Network");
+  //       } catch (switchError) {
+  //         if (switchError.code === 4902) {
+  //           console.error("Base Network is not present in your wallet.");
+  //           alert(
+  //             "Base Network is not added to your wallet. Please add it manually."
+  //           );
+  //         } else {
+  //           console.error("Failed to switch to Base Network:", switchError);
+  //         }
+  //       }
+  //     } catch (connectError) {
+  //       console.error("User denied account access:", connectError);
+  //     }
+  //   } else {
+  //     alert("MetaMask not detected");
+  //     console.error("MetaMask not detected");
+  //   }
+  // };
 
   // const handleConnectWallet = async () => {
   //   if (window.ethereum) {
@@ -960,7 +1014,6 @@ const ConnectWallet = () => {
                   onChange={(e) => handleFileChangeNft(e)}
                   disabled={!walletAddress}
                 />
-                {/* <div className="nft-file-name-container"> */}
                 {fileNameNft ? (
                   <p className="nft-file-name-display">{fileNameNft}</p>
                 ) : (
@@ -1157,7 +1210,6 @@ const ConnectWallet = () => {
                   }
                 >
                   {loading ? "Uploading..." : uploaded ? "Uploaded" : "Upload"}
-          
                 </button>
               </div>
 
@@ -1225,4 +1277,3 @@ const ConnectWallet = () => {
 };
 
 export default ConnectWallet;
-
