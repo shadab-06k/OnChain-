@@ -46,7 +46,7 @@ const ConnectWallet = () => {
 
   // const apiIp = process.env.REACT_APP_API_IP;
   // console.log("api ip url ==>>> ", apiIp);
-  const apiIp = `34.131.40.152:8080`
+  const apiIp = '34.131.40.152:8080'
     console.log("api ip url ==>>> ", apiIp);
 
   useEffect(() => {
