@@ -44,10 +44,7 @@ const ConnectWallet = () => {
 
   // console.log("toAddressNft", toAddressNft);
 
-  // const apiIp = process.env.REACT_APP_API_IP;
-  // console.log("api ip url ==>>> ", apiIp);
-  const apiIp = "http://34.131.40.152:8080";
-
+  const apiIp = process.env.REACT_APP_API_IP;
   console.log("api ip url ==>>> ", apiIp);
 
   useEffect(() => {
@@ -105,7 +102,7 @@ const ConnectWallet = () => {
   }, []);
   const userSignup = async (walletAddress) => {
     try {
-      const res = await fetch(`${apiIp}/sign-in`, {
+      const res = await fetch(`http://${apiIp}/sign-in`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
@@ -205,7 +202,7 @@ const ConnectWallet = () => {
 
   const executeOrder = async (walletAddress, OrderID) => {
     try {
-      const res = await fetch(`${apiIp}/execute-txn`, {
+      const res = await fetch(`http://${apiIp}/execute-txn`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
@@ -413,7 +410,7 @@ const ConnectWallet = () => {
       formData.append("file", file); // Append the file to the form data
       formData.append("WalletAddress", walletAddress); // Append the wallet address
 
-      const res = await fetch(`${apiIp}/upload-excel`, {
+      const res = await fetch(`http://${apiIp}/upload-excel`, {
         method: "POST",
         body: formData, // Send the form data (file + wallet address)
       });
@@ -488,7 +485,7 @@ const ConnectWallet = () => {
         );
         return;
       }
-      const res = await fetch(`${apiIp}/estimate-gas`, {
+      const res = await fetch(`http://${apiIp}/estimate-gas`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
@@ -649,7 +646,7 @@ const ConnectWallet = () => {
       formData.append("order_id", orderIdNft); // Append the wallet address
       // console.log("OrderIdNftImage", orderIdNft);
 
-      const res = await fetch(`${apiIp}/upload-nft-metadata`, {
+      const res = await fetch(`http://${apiIp}/upload-nft-metadata`, {
         method: "POST",
         body: formData, // Send the form data (file + wallet address)
       });
@@ -714,7 +711,7 @@ const ConnectWallet = () => {
       formData.append("file", file); // Append the file to the form data
       formData.append("WalletAddress", walletAddress); // Append the wallet address
 
-      const res = await fetch(`${apiIp}/upload-nft-address`, {
+      const res = await fetch(`http://${apiIp}/upload-nft-address`, {
         method: "POST",
         body: formData, // Send the form data (file + wallet address)
       });
@@ -788,7 +785,7 @@ const ConnectWallet = () => {
         );
         return;
       }
-      const res = await fetch(`${apiIp}/estimate-nft-gas`, {
+      const res = await fetch(`http://${apiIp}/estimate-nft-gas`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
