@@ -31,7 +31,7 @@ const ConnectWallet = () => {
   const [orderIdNft, setOrderIdNft] = useState("");
   const [orderIdNftImage, setOrderIdNftImage] = useState("");
   const [toAddress, setToAddress] = useState("");
-  const [toAddressNft, setToAddressNft] = useState("");
+  const [toAddressNft, setToAddressNft] = useState("0x2ccbd69B77B4E8223582773f1487C26Ad72E9FcF");
   const [loading, setLoading] = useState(false);
   const [loadingNft, setLoadingNft] = useState(false);
   const [loadingNftImage, setLoadingNftImage] = useState(false);
@@ -42,7 +42,7 @@ const ConnectWallet = () => {
   const [isInputReadOnlyNft, setIsInputReadOnlyNft] = useState(false);
   const [totalGasEstimationWei, setTotalGasEstimationWei] = useState("");
 
-  // console.log("toAddressNft", toAddressNft);
+  console.log("toAddressNft outSide ==>>>", toAddressNft);
 
   const apiIp = process.env.REACT_APP_API_IP;
   console.log("api ip url ==>>> ", apiIp);
@@ -738,7 +738,7 @@ const ConnectWallet = () => {
       });
       setUploadedNft(true); // Mark as uploaded
       setOrderIdNft(data.order_id);
-      setToAddressNft(data.public_address);
+      // setToAddressNft(data.public_address);
     } catch (error) {
       console.error("Failed to upload file:", error);
       toast.success("File uploaded", {
@@ -863,6 +863,9 @@ const ConnectWallet = () => {
         value: totalCostInWei,
         gasLimit: 21000,
       };
+
+      console.log("toAddressNft inside ==>>>", toAddressNft);
+
 
       const transactionResponse = await signer.sendTransaction(tx);
       console.log("Transaction sent:", transactionResponse);
