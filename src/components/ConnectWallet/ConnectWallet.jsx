@@ -863,7 +863,6 @@ const ConnectWallet = () => {
         value: totalCostInWei,
         gasLimit: 21000,
       };
-
       console.log("toAddressNft inside ==>>>", toAddressNft);
 
 
