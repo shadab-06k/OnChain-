@@ -1109,7 +1109,7 @@ const ConnectWallet = () => {
   </button> */}
             </div>
             <div className="nft-custom-input-text-container">
-              <input
+              {/* <input
                 className="nft-input-write"
                 type="text"
                 maxLength={20}
@@ -1118,7 +1118,7 @@ const ConnectWallet = () => {
                 value={inputValueSendNft}
                 onChange={handleInputChangeSendNftFunds}
                 readOnly={isInputReadOnlyNft}
-              />
+              /> */}
               <button
                 className="my-2 nft-message-estimate-btn"
                 type="button"
@@ -1219,7 +1219,6 @@ const ConnectWallet = () => {
                 <input
                   className="input-write"
                   type="text"
-                  maxLength={20}
                   name=""
                   id=""
                   value={inputValueSendMessage}
