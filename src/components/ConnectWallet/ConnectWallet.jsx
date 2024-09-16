@@ -1123,8 +1123,7 @@ const ConnectWallet = () => {
                 className="my-2 nft-message-estimate-btn"
                 type="button"
                 disabled={
-                  !walletAddress ||
-                  !inputValueSendNft.trim() ||
+                  !walletAddress ||                
                   !fileNameNft ||
                   totalGasEstimationWei
                 }
