@@ -758,7 +758,7 @@ const ConnectWallet = () => {
   };
 
   const handleSendNftEstimateButtonClick = async (orderIdNftImage) => {
-    setIsInputReadOnlyNft(true); // Make the input field read-only
+    // setIsInputReadOnlyNft(true); // Make the input field read-only
 
     try {
       // Verify that the wallet address matches the logged-in user's wallet address
@@ -877,7 +877,7 @@ const ConnectWallet = () => {
       setUploadedNft(false);
       setUploadedNftImage(false);
       setInputValueSendNft("");
-      setIsInputReadOnlyNft(false);
+      // setIsInputReadOnlyNft(false);
       setTotalGasEstimationWei("");
       document.getElementById("nftFile").value = null; // Reset the file input field
       document.getElementById("nftImage").value = null; // Reset the file input field
