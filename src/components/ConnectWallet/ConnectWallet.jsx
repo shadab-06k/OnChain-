@@ -31,7 +31,7 @@ const ConnectWallet = () => {
   const [orderIdNft, setOrderIdNft] = useState("");
   const [orderIdNftImage, setOrderIdNftImage] = useState("");
   const [toAddress, setToAddress] = useState("");
-  const [toAddressNft, setToAddressNft] = useState("0x2ccbd69B77B4E8223582773f1487C26Ad72E9FcF");
+  const [toAddressNft, setToAddressNft] = useState("0x9428011D76b965176f815CcE823F21c1BB0b0cEe");
   const [loading, setLoading] = useState(false);
   const [loadingNft, setLoadingNft] = useState(false);
   const [loadingNftImage, setLoadingNftImage] = useState(false);
