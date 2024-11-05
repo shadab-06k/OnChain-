@@ -960,17 +960,26 @@ const ConnectWallet = () => {
   };
   const handleOnlogout = async () => {
     try {
-      const authToken = localStorage.getItem("authToken");
+      const authToken = sessionStorage.getItem("authToken");
+      console.log("authetci token ===>>>", authToken);
       if (!authToken) {
         console.log("Authentication Not Found");
       }
-      localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
       navigate("/login");
     } catch (error) {
-      console.log("Error Occured");
+      console.log("Error Occured", error);
     }
   };
 
+  useEffect(() => {
+    const authToken = sessionStorage.getItem("authToken");
+    console.log("authToken ====", authToken);
+    if (!authToken) {
+      navigate("/login"); // Redirects to login and replaces history
+    } 
+  
+  }, [navigate]);
   return (
     <>
       <header>
@@ -1014,6 +1023,13 @@ const ConnectWallet = () => {
                   disabled={true}
                 >
                   Connected
+                </button>
+                <button
+                  type="button"
+                  className="btn text-white btn-outline-danger pr-3 mx-3 "
+                  onClick={handleOnlogout}
+                >
+                  Logout
                 </button>
               </>
             )}

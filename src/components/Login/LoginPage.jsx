@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./LoginPage.css";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -59,9 +59,8 @@ const LoginPage = () => {
         }),
       });
 
-      console.log('email body ==== ',formData.email)
-      console.log('passwords body == ',formData.password)
-
+      console.log("email body ==== ", formData.email);
+      console.log("passwords body == ", formData.password);
 
       if (!res.ok) {
         const text = await res.text();
@@ -72,8 +71,10 @@ const LoginPage = () => {
 
       const result = await res.json();
       console.log("Result for api in Login Page === ", result);
-      // const authToken = sessionStorage.setItem("authToken");
-      // console.log("Authenticatoon token for Login Page ===", authToken);
+      // console.log("Token for api in Login Page === ", result.token);
+
+      const authToken = sessionStorage.setItem("authToken", result.token);
+      console.log("Authentication token for Login Page ===", authToken);
 
       setFormData({
         email: "",
@@ -93,6 +94,26 @@ const LoginPage = () => {
   const togglePass = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    const authToken = sessionStorage.getItem("authToken");
+    console.log('authToken ====',authToken)
+    if (!authToken) {
+      navigate("/login"); // Redirects to login and replaces history
+    }
+  }, [navigate]);
+
+  useEffect(()=>{
+    const authToken = sessionStorage.getItem("authToken");
+    console.log('authToken ====',authToken)
+    if (authToken) {
+      alert("The user is already loggged. Please log out first")
+      navigate("/connect-wallet"); // Redirects to login and replaces history
+    }
+
+  },[])
+
+  
   return (
     <div className="login-main-container">
       <ToastContainer />

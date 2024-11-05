@@ -111,7 +111,9 @@ const WalletProvider = ({ children }) => {
   };
 
   return (
-    <WalletContext.Provider value={{ walletAddress,setWalletAddress, handleConnectWallet }}>
+    <WalletContext.Provider
+      value={{ walletAddress, setWalletAddress, handleConnectWallet }}
+    >
       {children}
     </WalletContext.Provider>
   );

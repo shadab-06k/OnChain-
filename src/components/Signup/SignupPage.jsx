@@ -67,7 +67,7 @@ const SignupPage = () => {
       // alert("User Signed in successfully");
       console.log("Result for Signup page ==>>>", result);
       console.log("User Signed in successfully");
-      toast.success("User Signed in successfully", {
+      toast.success("User Created Successfully", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
