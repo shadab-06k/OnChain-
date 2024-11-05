@@ -59,8 +59,8 @@ const LoginPage = () => {
         }),
       });
 
-      console.log("email body ==== ", formData.email);
-      console.log("passwords body == ", formData.password);
+      // console.log("email body ==== ", formData.email);
+      // console.log("passwords body == ", formData.password);
 
       if (!res.ok) {
         const text = await res.text();
@@ -70,11 +70,11 @@ const LoginPage = () => {
       }
 
       const result = await res.json();
-      console.log("Result for api in Login Page === ", result);
+      // console.log("Result for api in Login Page === ", result);
       // console.log("Token for api in Login Page === ", result.token);
 
       const authToken = sessionStorage.setItem("authToken", result.token);
-      console.log("Authentication token for Login Page ===", authToken);
+      // console.log("Authentication token for Login Page ===", authToken);
 
       setFormData({
         email: "",
@@ -97,7 +97,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const authToken = sessionStorage.getItem("authToken");
-    console.log('authToken ====',authToken)
+    // console.log('authToken ====',authToken)
     if (!authToken) {
       navigate("/login"); // Redirects to login and replaces history
     }
@@ -105,7 +105,7 @@ const LoginPage = () => {
 
   useEffect(()=>{
     const authToken = sessionStorage.getItem("authToken");
-    console.log('authToken ====',authToken)
+    // console.log('authToken ====',authToken)
     if (authToken) {
       alert("The user is already loggged. Please log out first")
       navigate("/connect-wallet"); // Redirects to login and replaces history

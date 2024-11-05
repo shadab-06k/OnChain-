@@ -25,6 +25,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.last-name-input-field{
+    width: 96%;
+}
 @media screen and (max-width: 804px) {
   .signup-container {
     height: 80%;

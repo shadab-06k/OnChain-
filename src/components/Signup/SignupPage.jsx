@@ -65,8 +65,8 @@ const SignupPage = () => {
       }
       const result = await res.json();
       // alert("User Signed in successfully");
-      console.log("Result for Signup page ==>>>", result);
-      console.log("User Signed in successfully");
+      // console.log("Result for Signup page ==>>>", result);
+      // console.log("User Signed in successfully");
       toast.success("User Created Successfully", {
         position: "top-right",
         autoClose: 3000,
@@ -141,7 +141,7 @@ const SignupPage = () => {
               </label>
               <input
                 type="name"
-                className="mx-2 form-control"
+                className="mx-2 form-control last-name-input-field"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 name="lastName"
