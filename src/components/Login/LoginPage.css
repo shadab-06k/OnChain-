@@ -1,0 +1,70 @@
+.login-main-container {
+  height: 100vh;
+  /* background-size: cover; */
+  background-image: url("../../assets/Images/mainBgImg.png");
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Ensures the image doesn't repeat */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-top: 50px; */
+}
+
+.login-container {
+  /* backdrop-filter: blur(2px); */
+  /* height: 70%;
+    width: 50%; */
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: -2px -2px 4px 0px rgba(228, 228, 228, 0.3) inset,
+    2px 2px 4px 0px rgba(228, 228, 228, 0.5) inset;
+  backdrop-filter: blur(12px);
+  height: 440px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  border: 1px solid #ffff;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin: 0 auto;
+  flex-direction: column;
+  /* padding: 10px; */
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.password-input-container {
+  position: relative;
+}
+.eye {
+  position: absolute;
+  top: 73%; /* Aligns vertically in the middle */
+  right: 10px; /* Aligns to the left of the input field */
+  transform: translateY(-50%); /* Adjusts vertical alignment */
+  cursor: pointer;
+  color: #000; /* Optional: Change the color of the icon */
+}
+
+.butt {
+  border: none;
+  background: linear-gradient(180deg, #6a40d9 0%, #ee328d 100%);
+}
+
+.butt:hover {
+  background: #6a40d9;
+}
+.signup-text {
+  text-decoration: none;
+  color: #ffff;
+}
+.signup-text:hover {
+  /* text-decoration: none; */
+  color: #6a40d9;
+}
+
+@media screen and (max-width: 804px) {
+  .login-container {
+    height: 80%;
+    width: 80%;
+  }
+}

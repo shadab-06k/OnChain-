@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   const handleLaunchButton = () => {
-    navigate("/connect-wallet");
+    navigate("/login");
   };
 
   return (

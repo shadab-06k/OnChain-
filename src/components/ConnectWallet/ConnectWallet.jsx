@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ConnectWallet.css";
 import { FaWallet } from "react-icons/fa";
 import sendNftImg from "../../assets/Images/sendNftImg1.png";
@@ -6,6 +6,8 @@ import { ethers } from "ethers";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { WalletContext } from "../WalletContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // const Loader = () => (
 //   <section className="dots-container">
@@ -18,9 +20,11 @@ import { ToastContainer } from "react-toastify";
 // );
 
 const ConnectWallet = () => {
+  const { handleConnectWallet, walletAddress, setWalletAddress } =
+    useContext(WalletContext);
   const [inputValueSendMessage, setInputValueSendMessage] = useState("");
   const [inputValueSendNft, setInputValueSendNft] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
+  // const [walletAddress, setWalletAddress] = useState("");
   const [fileNameMessage, setFileNameMessage] = useState("");
   const [fileNameNft, setFileNameNft] = useState("");
   const [fileNameNftImage, setFileNameNftImage] = useState("");
@@ -31,7 +35,9 @@ const ConnectWallet = () => {
   const [orderIdNft, setOrderIdNft] = useState("");
   const [orderIdNftImage, setOrderIdNftImage] = useState("");
   const [toAddress, setToAddress] = useState("");
-  const [toAddressNft, setToAddressNft] = useState("0x9428011D76b965176f815CcE823F21c1BB0b0cEe");
+  const [toAddressNft, setToAddressNft] = useState(
+    "0x9428011D76b965176f815CcE823F21c1BB0b0cEe"
+  );
   const [loading, setLoading] = useState(false);
   const [loadingNft, setLoadingNft] = useState(false);
   const [loadingNftImage, setLoadingNftImage] = useState(false);
@@ -44,6 +50,7 @@ const ConnectWallet = () => {
 
   console.log("toAddressNft outSide ==>>>", toAddressNft);
 
+  const navigate = useNavigate();
   const apiIp = process.env.REACT_APP_API_IP;
   console.log("api ip url ==>>> ", apiIp);
 
@@ -100,56 +107,56 @@ const ConnectWallet = () => {
       };
     }
   }, []);
-  const userSignup = async (walletAddress) => {
-    try {
-      const res = await fetch(`https://${apiIp}/sign-in`, {
-        method: "POST", // Use POST if you're sending data
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ walletAddress }), // Send the wallet address in the body
-      });
+  // const userSignup = async (walletAddress) => {
+  //   try {
+  //     const res = await fetch(`https://${apiIp}/sign-in`, {
+  //       method: "POST", // Use POST if you're sending data
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  // body: JSON.stringify({ walletAddress }), // Send the wallet address in the body
+  //     });
 
-      // Check if the response is OK (status 200-299)
-      if (!res.ok) {
-        const text = await res.text(); // Read the response as text
-        console.error("Server returned an error:", text);
-        alert("Failed to sign in. Please check your server.");
-        return false; // Indicate failure
-      }
+  // // Check if the response is OK (status 200-299)
+  // if (!res.ok) {
+  //   const text = await res.text(); // Read the response as text
+  //   console.error("Server returned an error:", text);
+  //   alert("Failed to sign in. Please check your server.");
+  //   return false; // Indicate failure
+  // }
 
-      // Attempt to parse the response as JSON
-      const data = await res.json();
-      console.log("User Signed in Successfully:", data);
-      toast.success("Wallet Connected", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
+  //     // Attempt to parse the response as JSON
+  //     const data = await res.json();
+  //     console.log("User Signed in Successfully:", data);
+  // toast.success("Wallet Connected", {
+  //   position: "top-right",
+  //   autoClose: 3000,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: false,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: "dark",
+  //   transition: Bounce,
+  // });
 
-      return true; // Indicate success
-    } catch (error) {
-      console.error("Failed to sign in:", error);
-      toast.error("Unable To Connect Wallet", {
-        position: "top-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
-      return false; // Indicate failure
-    }
-  };
+  // return true; // Indicate success
+  //   } catch (error) {
+  // console.error("Failed to sign in:", error);
+  // toast.error("Unable To Connect Wallet", {
+  //   position: "top-left",
+  //   autoClose: 3000,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: false,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: "dark",
+  //   transition: Bounce,
+  // });
+  // return false;
+  //   }
+  // };
 
   // const userSignup = async (walletAddress) => {
   //   try {
@@ -202,7 +209,7 @@ const ConnectWallet = () => {
 
   const executeOrder = async (walletAddress, OrderID) => {
     try {
-      const res = await fetch(`https://${apiIp}/execute-txn`, {
+      const res = await fetch(`${apiIp}/execute-txn`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
@@ -238,59 +245,59 @@ const ConnectWallet = () => {
     }
   };
 
-  const handleConnectWallet = async () => {
-    if (window.ethereum) {
-      try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
+  // const handleConnectWallet = async () => {
+  //   if (window.ethereum) {
+  //     try {
+  //       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-        const accounts = await window.ethereum.request({
-          method: "eth_accounts",
-        });
-        const walletAddress = accounts[0];
+  //       const accounts = await window.ethereum.request({
+  //         method: "eth_accounts",
+  //       });
+  //       const walletAddress = accounts[0];
 
-        if (!walletAddress) {
-          console.error("No wallet address found.");
-          return;
-        }
+  //       if (!walletAddress) {
+  //         console.error("No wallet address found.");
+  //         return;
+  //       }
 
-        const signupSuccess = await userSignup(walletAddress);
+  //       const signupSuccess = await userSignup(walletAddress);
 
-        if (!signupSuccess) {
-          console.error(
-            "Failed to connect to the backend. Wallet not connected."
-          );
-          alert("Unable to connect to the backend. Wallet connection failed.");
-          return;
-        }
+  //       if (!signupSuccess) {
+  //         console.error(
+  //           "Failed to connect to the backend. Wallet not connected."
+  //         );
+  //         alert("Unable to connect to the backend. Wallet connection failed.");
+  //         return;
+  //       }
 
-        setWalletAddress(walletAddress);
-        console.log("Wallet Address:", walletAddress);
+  //       setWalletAddress(walletAddress);
+  //       console.log("Wallet Address:", walletAddress);
 
-        const baseChainId = "0x2105";
-        try {
-          await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: baseChainId }],
-          });
-          console.log("Successfully switched to the Base Network");
-        } catch (switchError) {
-          if (switchError.code === 4902) {
-            console.error("Base Network is not present in your wallet.");
-            alert(
-              "Base Network is not added to your wallet. Please add it manually."
-            );
-          } else {
-            console.error("Failed to switch to Base Network:", switchError);
-          }
-        }
-      } catch (connectError) {
-        console.error("User denied account access:", connectError);
-      }
-    } else {
-      alert("MetaMask not detected");
-      console.error("MetaMask not detected");
-    }
-  };
+  //       const baseChainId = "0x2105";
+  //       try {
+  //         await window.ethereum.request({
+  //           method: "wallet_switchEthereumChain",
+  //           params: [{ chainId: baseChainId }],
+  //         });
+  //         console.log("Successfully switched to the Base Network");
+  //       } catch (switchError) {
+  //         if (switchError.code === 4902) {
+  //           console.error("Base Network is not present in your wallet.");
+  //           alert(
+  //             "Base Network is not added to your wallet. Please add it manually."
+  //           );
+  //         } else {
+  //           console.error("Failed to switch to Base Network:", switchError);
+  //         }
+  //       }
+  //     } catch (connectError) {
+  //       console.error("User denied account access:", connectError);
+  //     }
+  //   } else {
+  //     alert("MetaMask not detected");
+  //     console.error("MetaMask not detected");
+  //   }
+  // };
 
   // const handleConnectWallet = async () => {
   //   if (window.ethereum) {
@@ -410,7 +417,7 @@ const ConnectWallet = () => {
       formData.append("file", file); // Append the file to the form data
       formData.append("WalletAddress", walletAddress); // Append the wallet address
 
-      const res = await fetch(`https://${apiIp}/upload-excel`, {
+      const res = await fetch(`${apiIp}/upload-excel`, {
         method: "POST",
         body: formData, // Send the form data (file + wallet address)
       });
@@ -485,7 +492,7 @@ const ConnectWallet = () => {
         );
         return;
       }
-      const res = await fetch(`https://${apiIp}/estimate-gas`, {
+      const res = await fetch(`${apiIp}/estimate-gas`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
@@ -646,7 +653,7 @@ const ConnectWallet = () => {
       formData.append("order_id", orderIdNft); // Append the wallet address
       // console.log("OrderIdNftImage", orderIdNft);
 
-      const res = await fetch(`https://${apiIp}/upload-nft-metadata`, {
+      const res = await fetch(`${apiIp}/upload-nft-metadata`, {
         method: "POST",
         body: formData, // Send the form data (file + wallet address)
       });
@@ -711,7 +718,7 @@ const ConnectWallet = () => {
       formData.append("file", file); // Append the file to the form data
       formData.append("WalletAddress", walletAddress); // Append the wallet address
 
-      const res = await fetch(`https://${apiIp}/upload-nft-address`, {
+      const res = await fetch(`${apiIp}/upload-nft-address`, {
         method: "POST",
         body: formData, // Send the form data (file + wallet address)
       });
@@ -785,7 +792,7 @@ const ConnectWallet = () => {
         );
         return;
       }
-      const res = await fetch(`https://${apiIp}/estimate-nft-gas`, {
+      const res = await fetch(`${apiIp}/estimate-nft-gas`, {
         method: "POST", // Use POST if you're sending data
         headers: {
           "Content-Type": "application/json",
@@ -864,7 +871,6 @@ const ConnectWallet = () => {
         gasLimit: 21000,
       };
       console.log("toAddressNft inside ==>>>", toAddressNft);
-
 
       const transactionResponse = await signer.sendTransaction(tx);
       console.log("Transaction sent:", transactionResponse);
@@ -952,6 +958,18 @@ const ConnectWallet = () => {
     const lastPart = address.slice(-6);
     return `${firstPart}..${lastPart}`;
   };
+  const handleOnlogout = async () => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      if (!authToken) {
+        console.log("Authentication Not Found");
+      }
+      localStorage.removeItem("authToken");
+      navigate("/login");
+    } catch (error) {
+      console.log("Error Occured");
+    }
+  };
 
   return (
     <>
@@ -972,21 +990,32 @@ const ConnectWallet = () => {
               ""
             )}
             {!walletAddress ? (
-              <button
-                className="mx-3 connect-wallet-btn"
-                onClick={handleConnectWallet}
-                type="button"
-              >
-                Connect
-              </button>
+              <>
+                <button
+                  className="mx-3 connect-wallet-btn"
+                  onClick={handleConnectWallet}
+                  type="button"
+                >
+                  Connect
+                </button>
+                <button
+                  type="button"
+                  className="btn text-white btn-outline-warning pr-3 mx-3"
+                  onClick={handleOnlogout}
+                >
+                  Logout
+                </button>
+              </>
             ) : (
-              <button
-                className="mx-3 connect-wallet-btn"
-                type="button"
-                disabled={true}
-              >
-                Connected
-              </button>
+              <>
+                <button
+                  className="mx-3 connect-wallet-btn"
+                  type="button"
+                  disabled={true}
+                >
+                  Connected
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -1123,9 +1152,7 @@ const ConnectWallet = () => {
                 className="my-2 nft-message-estimate-btn"
                 type="button"
                 disabled={
-                  !walletAddress ||                
-                  !fileNameNft ||
-                  totalGasEstimationWei
+                  !walletAddress || !fileNameNft || totalGasEstimationWei
                 }
                 onClick={() => {
                   handleSendNftEstimateButtonClick(orderIdNftImage);

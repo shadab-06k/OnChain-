@@ -1,0 +1,38 @@
+.signup-container {
+  /* backdrop-filter: blur(2px); */
+  /* height: 70%;
+      width: 50%; */
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: -2px -2px 4px 0px rgba(228, 228, 228, 0.3) inset,
+    2px 2px 4px 0px rgba(228, 228, 228, 0.5) inset;
+  backdrop-filter: blur(12px);
+  height: 500px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  border: 1px solid #ffff;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin: 0 auto;
+  flex-direction: column;
+  /* padding: 10px; */
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.full-name-div {
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 804px) {
+  .signup-container {
+    height: 80%;
+    width: 80%;
+    /* flex-direction: column; */
+  }
+  /* .full-name-div{
+        flex-direction: column;
+
+    } */
+}
