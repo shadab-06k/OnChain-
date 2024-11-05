@@ -1000,7 +1000,7 @@ const ConnectWallet = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn text-white btn-outline-warning pr-3 mx-3"
+                  className="btn text-white btn-outline-danger pr-3 mx-3 "
                   onClick={handleOnlogout}
                 >
                   Logout
